@@ -1,0 +1,91 @@
+.about-project {
+    width: calc(100% - 140px);
+    margin: 110px auto;
+}
+/* Стили с блоками section используются в секциях AboutProject, Techs и AboutMe */
+.section__title {
+    padding-bottom: 23px;
+    border-bottom: 1px solid #000;
+}
+
+.section__title-text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    color: #000;
+    padding: 0;
+    margin: 0;
+}
+
+.about-project__container {
+    display: flex;
+    gap: 40px;
+    color: #000;
+    margin: 70px 0 110px;
+    padding: 0;
+}
+
+.about-project__item {
+    list-style: none;
+}
+
+.about-project__title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0 0 26px;
+}
+
+.about-project__text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.about-project__schedule {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+}
+
+.about-project__backend {
+    width: 20%;
+}
+
+.about-project__frontend {
+    width: 80%;
+}
+
+.about-project__time {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color:#000;
+    background-color: #2BE080;
+    padding: 9px 0;
+    margin: 0;
+}
+
+.about-project__time_color {
+    background-color: #F2F2F2;
+}
+
+.about-project__stage {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #A0A0A0;
+    margin: 0;
+    padding: 14px 0 0;
+}

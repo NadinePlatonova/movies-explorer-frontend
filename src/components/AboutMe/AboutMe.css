@@ -1,0 +1,78 @@
+.student {
+    width: calc(100% - 70px*2);
+    margin: 0 auto;
+    padding: 110px 0 125px;
+}
+
+.student__info {
+    display: grid;
+    grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
+    grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
+    grid-template-areas:
+    "description image";
+    justify-content: space-between;
+}
+
+.student__description {
+    grid-area: description;
+    color: #000;
+    max-width: 600px;
+}
+
+.student__name {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 66px 0 0;
+}
+.student__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    margin: 0;
+    padding: 18px 0 0;
+}
+
+.student__text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+    padding: 26px 0 99px;
+}
+
+.student__links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.student__link {
+    text-decoration: none;
+    transition: opacity 0.1s ease;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000;
+}
+
+.student__link:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.student__photo {
+    width: 270px;
+    height: 327px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 66px 0 0;
+}
