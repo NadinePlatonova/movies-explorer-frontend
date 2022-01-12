@@ -1,15 +1,24 @@
 .header {
     max-width: 100vw;
+    height: 74px;
     background-color: #073042;
     display: flex;
     justify-content: space-between;
-    padding: 0 70px 0 70px;
+    padding: 0 70px;
+}
+
+.header_type_loggedIn {
+    background-color: #fff;
 }
 
 .header__logo {
     padding: 26px 0 10px;
     width: 38px;
     height: 38px;
+}
+
+.header__logo_type_loggedIn {
+    padding: 18px 0;
 }
 
 .header__list {
