@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -34,23 +34,26 @@ function App() {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route path="/movies">
+        <Route exact path="/movies">
           <Movies />
         </Route>
-        <Route path="/saved-movies">
+        <Route exact path="/saved-movies">
           <SavedMovies />
         </Route>
-        <Route path="/profile">
+        <Route exact path="/profile">
           <Profile />
         </Route>
-        <Route path="/signin">
+        <Route exact path="/signin">
           <Login />
         </Route>
-        <Route path="/signup">
+        <Route exact path="/signup">
           <Register />
         </Route>
-        <Route path="/not-found">
+        <Route exact path="/not-found">
           <PageNotFound />
+        </Route>
+        <Route path="*">
+          <Redirect to="/not-found" />
         </Route>
       </Switch>
       {useRouteMatch(pagesWithoutFooter) ? null : 
