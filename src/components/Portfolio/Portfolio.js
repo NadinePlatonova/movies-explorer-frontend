@@ -9,19 +9,19 @@ function Portfolio() {
                     <li className="portfolio__item">
                         <a href="https://nadineplatonova.github.io/how-to-learn" className="portfolio__link" target="_blank" rel="noreferrer">
                             <p className="portfolio__text">Статичный сайт</p>
-                            <button className="portfolio__button"></button>
+                            <button className="portfolio__button" aria-label="Перейти по ссылке"></button>
                         </a>
                     </li>
                     <li className="portfolio__item">
                         <a href="https://nadineplatonova.github.io/russian-travel" className="portfolio__link" target="_blank" rel="noreferrer">
                             <p className="portfolio__text">Адаптивный сайт</p>
-                            <button className="portfolio__button"></button>
+                            <button className="portfolio__button" aria-label="Перейти по ссылке"></button>
                         </a>
                     </li>
                     <li className="portfolio__item">
                         <a href="https://platonova.mesto.nomoredomains.rocks" className="portfolio__link" target="_blank" rel="noreferrer">
                             <p className="portfolio__text">Одностраничное приложение</p>
-                            <button className="portfolio__button"></button>
+                            <button className="portfolio__button" aria-label="Перейти по ссылке"></button>
                         </a>
                     </li>
                 </ul>

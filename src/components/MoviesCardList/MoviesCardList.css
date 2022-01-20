@@ -6,5 +6,23 @@
     grid-template-rows: auto;
     gap: 37px 24px;
     margin: 0 auto;
-    padding: 0;
+    padding: 70px 0 0;
+}
+
+@media screen and (max-width: 1023px) {
+    .movies-card-list {
+        width: calc(100% - 30px*2);
+        grid-template-columns: repeat(auto-fill, minmax(339px, 1fr));
+        gap: 30px;
+        padding: 70px 0 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies-card-list {
+        width: calc(100% - 10px*2);
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        padding: 40px 0 26px;
+        gap: 14px;
+    }
 }

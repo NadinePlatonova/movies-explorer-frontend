@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 74px 0 0;
 }
 
 .profile__title {
@@ -12,6 +13,7 @@
     line-height: 29px;
     color: #000;
     text-align: center;
+    margin: 0;
 }
 
 .profile__form {
@@ -23,6 +25,7 @@
     display: flex;
     border-bottom: 1px solid #E8E8E8;
     padding: 0 0 16px;
+    box-sizing: border-box;
 }
 
 .profile__info:last-of-type {
@@ -80,4 +83,36 @@
 .profile__link:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1023px) {
+    .profile {
+        padding: 236px 0 0;
+    }
+
+    .profile__form {
+        padding: 96px 0 16px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile {
+        padding: 70px 0 0;
+    }
+
+    .profile__form {
+        width: 260px;
+        padding: 70px 0 16px;
+    }
+
+    .profile__button {
+        margin: 379px 0 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .profile__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
 }

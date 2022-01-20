@@ -9,6 +9,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import MenuPage from '../MenuPage/MenuPage';
 
 function App() {
   const pagesWithoutHeader = [
@@ -24,10 +25,20 @@ function App() {
     "/not-found",
   ];
 
+  const [isMenuPageOpened, setIsPageMenuOpened] = React.useState(false);
+
+  function handleBurgerMenu() {
+    setIsPageMenuOpened(true);
+  }
+
+  function closeBurgerMenu() {
+    setIsPageMenuOpened(false);
+  }
+
   return (
     <div className="App">
       {useRouteMatch(pagesWithoutHeader) ? null : 
-      (<Header />)
+      (<Header onBurgerMenu={handleBurgerMenu}/>)
       }
 
       <Switch>
@@ -59,6 +70,7 @@ function App() {
       {useRouteMatch(pagesWithoutFooter) ? null : 
       (<Footer />)
       }
+      <MenuPage isOpen={isMenuPageOpened} onClose={closeBurgerMenu}/>
     </div>
   );
 }

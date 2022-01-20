@@ -26,3 +26,17 @@
     opacity: 0.6;
     cursor: pointer;
 }
+
+@media screen and (max-width: 767px) {
+    .navtab {
+        padding: 25px 0;
+    }
+
+    .navtab__list {
+        gap: 24px;
+    }
+
+    .navtab__item {
+        font-size: 11px;
+    }
+}

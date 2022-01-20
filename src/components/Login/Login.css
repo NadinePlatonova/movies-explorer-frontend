@@ -26,7 +26,7 @@
 }
 
 .auth-reg__form {
-    width: 396px;
+    width: 100%;
 }
 
 .auth-reg__container {
@@ -109,4 +109,46 @@
 .auth-reg__caption-link:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1023px) {
+    .auth-reg {
+        padding: 232px 0 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .auth-reg {
+        width: 320px;
+        padding: 56px 0 0;
+        align-items: center;
+    }
+
+    .auth-reg__title {
+        padding: 50px 0 80px;
+    }
+
+    .auth-reg__form {
+        width: calc(100% - 30px*2);
+    }
+
+    .auth-reg__button {
+        font-size: 12px;
+        line-height: 15px;
+        margin: 267px 0 14px;
+    }
+
+    .auth-reg__caption {
+        gap: 7px;
+    }
+
+    .auth-reg__caption-text {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .auth-reg__caption-link {
+        font-size: 12px;
+        line-height: 15px;
+    }
 }

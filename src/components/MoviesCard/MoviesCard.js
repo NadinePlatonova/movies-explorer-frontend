@@ -2,8 +2,8 @@ import React from 'react';
 
 function MoviesCard(props) {
     const isLiked = false;
-    const isLikedMovies = props.isSavedMovies;
-    const movieButtonClassName = (`movies-card__button ${isLikedMovies ? 'movies-card__button_type_delete' : (isLiked ? 'movies-card__button_type_active' : '')}`);
+    const isSavedMovies = props.isSavedMovies;
+    const movieButtonClassName = (`movies-card__button ${isSavedMovies ? 'movies-card__button_type_delete' : (isLiked ? 'movies-card__button_type_active' : '')}`);
 
     return (
         <li className="movies-card">
