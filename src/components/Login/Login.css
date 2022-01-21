@@ -57,6 +57,11 @@
     margin: 10px 0 0;
 }
 
+.auth-reg__input:focus {
+    outline: none;
+    padding: 15px;
+}
+
 .auth-reg__button {
     background-color: #3456F3;
     border: none;

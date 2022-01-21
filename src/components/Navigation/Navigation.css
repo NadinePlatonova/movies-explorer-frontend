@@ -45,6 +45,10 @@
     cursor: pointer;
 }
 
+.navigation__item_type_normal {
+    font-weight: normal;
+}
+
 .navigation__account-icon {
     width: 11,5px;
     background-color: #F9F9F9;

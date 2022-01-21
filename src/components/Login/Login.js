@@ -10,10 +10,10 @@ function Login() {
             <form className="auth-reg__form">
                 <div className="auth-reg__container">
                     <label className="auth-reg__label">E-mail</label>
-                    <input className="auth-reg__input" id="email" name="email" type="email"></input>
+                    <input className="auth-reg__input" id="email" name="email" type="email" required></input>
                     <label className="auth-reg__label">Пароль</label>
-                    <input className="auth-reg__input" id="password" name="password" type="password"></input>
-                    <button className="auth-reg__button">Войти</button>
+                    <input className="auth-reg__input" id="password" name="password" type="password" required></input>
+                    <button className="auth-reg__button" aria-label="Войти">Войти</button>
                     <div className="auth-reg__caption">
                         <p className="auth-reg__caption-text">Ещё не зарегистрированы?</p>
                         <Link to="/signup" className="auth-reg__caption-link">Регистрация</Link>

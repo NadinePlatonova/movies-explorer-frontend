@@ -26,6 +26,10 @@
     padding: 0;
 }
 
+.search__input:focus {
+    outline: none;
+}
+
 .search__button {
     background-image: url(../../images/find.svg);
     background-repeat: no-repeat;

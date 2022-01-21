@@ -51,6 +51,10 @@
     text-align: end;
 }
 
+.profile__input:focus {
+    outline: none;
+}
+
 .profile__button {
     width: 100%;
     font-style: normal;
