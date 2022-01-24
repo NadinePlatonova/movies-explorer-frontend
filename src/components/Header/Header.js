@@ -6,7 +6,7 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import logo from '../../images/logo.svg';
 // чтобы посмотреть header с ссылками на фильмы, сохраненными фильмами и аккаунтом,
 // нужно поставить у переменной loggedIn значение true (это временное решение)
-const loggedIn = false;
+const loggedIn = true;
 
 function Header(props) {
     return (

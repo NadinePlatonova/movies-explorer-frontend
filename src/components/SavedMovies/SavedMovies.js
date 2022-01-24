@@ -28,7 +28,7 @@ function SavedMovies() {
         <section className="movies">
             <SearchForm />
             <MoviesCardList cards={cards} isSavedMovies={true} />
-            <div className="movies__saved-devider"></div>
+            <div className="movies__saved-divider"></div>
         </section>
     )
 }

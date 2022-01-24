@@ -23,11 +23,11 @@
 .search__input {
     border: none;
     width: 100%;
-    padding: 0;
+    padding: 5px;
 }
 
 .search__input:focus {
-    outline: none;
+    outline: 2px solid #2BE080;
 }
 
 .search__button {

@@ -19,7 +19,6 @@ function MenuPage(props) {
                 </div>
 
             </div>
-
         </section>
     )
 }

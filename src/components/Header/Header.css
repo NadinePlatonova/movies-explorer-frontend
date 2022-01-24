@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0 70px;
+    margin: 0;
 }
 
 .header_type_loggedIn {
