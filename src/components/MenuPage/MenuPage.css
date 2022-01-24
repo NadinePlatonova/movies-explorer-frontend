@@ -1,0 +1,121 @@
+.menu-page {
+    visibility: hidden;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    height: 100%;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.menu-page_opened {
+    visibility: visible;
+    opacity: 1;
+}
+
+.menu-page__container {
+    width: 520px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+}
+
+.menu-page__close-button {
+    background-image: url(../../images/close-button.svg);
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 22.44px;
+    top: 22.44px;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    background-size: 100%;
+}
+
+.menu-page__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 159px 0 92px;
+    height: -webkit-fill-available;
+}
+
+.menu-page__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-page__link {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-decoration: none;
+    padding: 0 0 4px;
+    color: #000;
+    transition: opacity 0.1s ease;
+}
+
+.menu-page__link:hover {
+    opacity: 0.6;
+    cursor: pointer; 
+}
+
+.menu-page__link_type_account {
+    font-size: 14px;
+    line-height: 16px;
+    padding: 0;
+}
+
+.menu-page__link_active {
+    border-bottom: 2px solid #000;
+}
+
+.menu-page__account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+}
+
+.menu-page__account-pic {
+    background-image: url(../../images/icon_account.svg);
+    background-repeat: no-repeat;
+    background-color: #F9F9F9;
+    border-radius: 4px;
+    width: 11.5px;
+    height: 14px;
+    padding: 8px 7.25px;
+    background-position: center;
+}
+
+@media screen and (max-width: 620px) {
+    .menu-page__container {
+        width: 100%;
+    }
+
+    .menu-page__navigation {
+        margin: 144px 0 48px;
+    }
+
+    .menu-page__link {
+        padding: 0 0 7px;
+    }
+
+    .menu-page__links {
+        gap: 24px;
+    }
+}

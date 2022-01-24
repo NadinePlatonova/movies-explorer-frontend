@@ -1,0 +1,11 @@
+/* Все остальные классы прописаны в Login.css */
+
+.auth-reg__button_reg {
+    margin: 91px 0 16px;
+}
+
+@media screen and (max-width: 767px) {
+    .auth-reg__button_reg {
+        margin: 179px 0 14px;
+    }
+}

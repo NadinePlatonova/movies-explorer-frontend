@@ -1,0 +1,24 @@
+.burger-menu {
+    display: none;
+    background-image: url(../../images/burger-menu.svg);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 44px;
+    height: 44px;
+    border: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .burger-menu {
+        width: 40px;
+        height: 43px;
+    }
+}

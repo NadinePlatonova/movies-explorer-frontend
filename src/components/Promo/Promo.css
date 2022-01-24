@@ -1,0 +1,38 @@
+.promo {
+    padding: 184px 0 224px;
+    background-color: #073042;
+    background-image: url(../../images/pic_main.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 320px;
+}
+
+.promo__text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    max-width: 730px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1023px) {
+    .promo {
+        padding: 326px 0 342px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .promo {
+        padding: 207px 0 246px;
+        background-size: 248px;
+    }
+
+    .promo__text {
+        font-size: 31px;
+        line-height: 39px;
+        max-width: 300px;
+    }
+}
