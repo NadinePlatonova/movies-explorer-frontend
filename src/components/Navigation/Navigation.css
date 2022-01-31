@@ -49,6 +49,10 @@
     font-weight: normal;
 }
 
+.navigation__item_theme_dark {
+    color: #fff;
+}
+
 .navigation__account-icon {
     width: 11,5px;
     background-color: #F9F9F9;

@@ -12,6 +12,10 @@
     background-color: #fff;
 }
 
+.header_type_loggedIn_dark {
+    background-color: #073042;
+}
+
 .header__logo {
     padding: 26px 0 10px;
     width: 38px;

@@ -27,6 +27,7 @@
     border-bottom: 1px solid #E8E8E8;
     padding: 0 0 16px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .profile__info:last-of-type {
@@ -75,6 +76,11 @@
     cursor: pointer;
 }
 
+.profile__button:disabled {
+    opacity: unset;
+    cursor: default;
+}
+
 .profile__link {
     font-style: normal;
     font-weight: 500;
@@ -88,6 +94,17 @@
 .profile__link:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+.profile__error {
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    text-align: left;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 1023px) {

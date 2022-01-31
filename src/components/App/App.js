@@ -53,28 +53,25 @@ function App() {
   function onLogin(data) {
     mainApi.login(data)
       .then(() => {
-        checkToken()
+        setLoggedIn(true);
+        history.push("/movies");
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
-  const checkToken = React.useCallback(() => {
+  const checkAuthStatus = React.useCallback(() => {
     mainApi.getContent()
-      .then(res => {
-        setLoggedIn(res != null)
-        setCurrentUser(res)
-        history.push('/movies')
-      })
+      .then(() => setLoggedIn(true))
       .catch((err) => {
         console.log(err);
       })
-  }, [history]);
+  }, []);
 
   React.useEffect(() => {
-    checkToken()
-  }, [checkToken]);
+    checkAuthStatus()
+  }, [checkAuthStatus]);
 
   function handleUpdateUser(data) {
     mainApi.editUserInfo(data)
@@ -107,35 +104,46 @@ function App() {
               loggedIn={loggedIn}
             />
           </Route>
-          <Route exact path="/movies">
-            <Movies />
+          <Route path="/movies">
+            <Movies
+              loggedIn={loggedIn}
+            />
           </Route>
-          <Route exact path="/saved-movies">
-            <SavedMovies />
+          <Route path="/saved-movies">
+            <SavedMovies 
+              loggedIn={loggedIn}
+            />
           </Route>
-          <Route exact path="/profile">
+          <Route path="/profile">
             <Profile
               onUpdateUser={handleUpdateUser}
               onSignOut={handleSignOut}
             />
           </Route>
-          <Route exact path="/signin">
+          <Route path="/signin">
+            {loggedIn
+            ? <Redirect to="/movies" />
+            :
             <Login
-              onLogin={onLogin}
-              checkToken={checkToken}
+            onLogin={onLogin}
             />
+            }
           </Route>
-          <Route exact path="/signup">
+          <Route path="/signup">
+            {loggedIn
+            ? <Redirect to="/movies" />
+            :
             <Register
-              onRegister={onRegister}
+            onRegister={onRegister}
             />
-          </Route>
-          <Route exact path="/not-found">
-            <PageNotFound />
+            }
           </Route>
           <Route path="*">
-            <Redirect to="/not-found" />
+            <PageNotFound />
           </Route>
+          {/* <Route path="*">
+            <Redirect to="/not-found" />
+          </Route> */}
         </Switch>
         {useRouteMatch(pagesWithoutFooter) ? null : 
         (<Footer />)

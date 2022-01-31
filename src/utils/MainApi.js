@@ -75,6 +75,50 @@ export const signout = () => {
     .then(checkResponseStatus);
 };
 
+export const saveMovie = (data) => {
+    return fetch(`${BASE_URL}/movies`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "country": data.country || ' ',
+            "director": data.director || ' ',
+            "duration": data.duration || 0,
+            "year": data.year || ' ',
+            "description": data.description || ' ',
+            "image": `https://api.nomoreparties.co${data.image.url}`,
+            "movieId": `${data.id}`,
+            "nameRU": data.nameRU || ' ',
+            "nameEN": data.nameEN || ' ',
+        }),
+        credentials: 'include',
+    })
+    .then(checkResponseStatus);
+};
+
+export const deleteMovie = (id) => {
+    return fetch(`${BASE_URL}/movies/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    })
+    .then(checkResponseStatus);
+};
+
+export const getMovies = () => {
+    return fetch(`${BASE_URL}/movies`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    })
+    .then(checkResponseStatus);
+};
+
 function checkResponseStatus(res) {
     if (res.ok) {
         return res.json();
