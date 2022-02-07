@@ -329,6 +329,7 @@ function App() {
                 loggedIn={loggedIn}
                 searchResults={savedMovies}
                 savedMovies={savedMovies}
+                notFoundMovies={notFoundMovies}
                 handleDeleteMovie={handleDeleteMovie}
                 onSubmit={handleSavedMoviesSearchSubmit}
                 onCheckbox={toggleSavedMoviesCheckboxStatus}
