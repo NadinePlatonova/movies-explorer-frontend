@@ -313,7 +313,7 @@ function App() {
                 path="/movies"
                 loggedIn={loggedIn}
                 allMovies={movies}
-                foundMovies={foundMovies}
+                searchResults={foundMovies}
                 savedMovies={savedMovies}
                 onSubmit={handleSearchSubmit}
                 onToggleMovieStatus={toggleMovieStatus}
@@ -327,7 +327,7 @@ function App() {
                 component={SavedMovies}
                 path="/saved-movies"
                 loggedIn={loggedIn}
-                foundMovies={savedMovies}
+                searchResults={savedMovies}
                 savedMovies={savedMovies}
                 handleDeleteMovie={handleDeleteMovie}
                 onSubmit={handleSavedMoviesSearchSubmit}

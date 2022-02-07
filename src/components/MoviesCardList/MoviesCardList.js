@@ -4,13 +4,13 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 function MoviesCardList(props) {
     return (
         <ul className="movies-card-list">
-            {props.foundMovies.map((item) => {
+            {props.searchResults.map((item) => {
                     return (
                         <MoviesCard
                             key={item._id}
                             card={item}
                             isLiked={props.savedMovies.some((i) => {
-                                return i.movieId === item._id ? true : false
+                                return i.movieId === `${item.id}` ? true : false
                             })}
                             handleSaveMovie={props.handleSaveMovie}
                             handleDeleteMovie={props.handleDeleteMovie}

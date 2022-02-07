@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies(props) {
     const allMoviesNumber = props.allMovies.length;
-    const foundMoviesNumber = props.foundMovies.length;
+    const foundMoviesNumber = props.searchResults.length;
 
     function handleMoreButtonShow() {
         return foundMoviesNumber < allMoviesNumber
@@ -30,7 +30,7 @@ function Movies(props) {
                 isChecked={props.isCheckboxActive}
             />
             <MoviesCardList 
-                foundMovies={props.foundMovies}
+                searchResults={props.searchResults}
                 savedMovies={props.savedMovies}
                 handleSaveMovie={props.onToggleMovieStatus}
                 handleDeleteMovie={props.handleDeleteMovie}
