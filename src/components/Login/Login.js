@@ -23,7 +23,7 @@ function Login(props) {
             <form className="auth-reg__form" onSubmit={handleSubmit}>
                 <div className="auth-reg__container">
                     <label className="auth-reg__label">E-mail</label>
-                    <input value={values["email"]} onChange={handleChange} className="auth-reg__input" id="email" name="email" type="email" required></input>
+                    <input value={values["email"]} onChange={handleChange} className="auth-reg__input" id="email" name="email" type="email" required pattern="/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i"></input>
                     <span className="auth-reg__error">{errors["email"]}</span>
                     <label className="auth-reg__label">Пароль</label>
                     <input value={values["password"]} onChange={handleChange} className="auth-reg__input" id="password" name="password" type="password" minLength="8" required></input>

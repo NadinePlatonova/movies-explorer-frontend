@@ -34,7 +34,7 @@ function Register(props) {
                     <input value={values["name"]} onChange={handleChangeClick} className="auth-reg__input" id="name" name="name" type="text" minLength="2" maxLength="30" pattern="[A-Za-zА-ЯЁа-яё -]+" required></input>
                     <span className="auth-reg__error">{errors["name"]}</span>
                     <label className="auth-reg__label">E-mail</label>
-                    <input value={values["email"]} onChange={handleChangeClick} className="auth-reg__input" id="email" name="email" type="email" required></input>
+                    <input value={values["email"]} onChange={handleChangeClick} className="auth-reg__input" id="email" name="email" type="email" required pattern="/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i"></input>
                     <span className="auth-reg__error">{errors["email"]}</span>
                     <label className="auth-reg__label">Пароль</label>
                     <input value={values["password"]} onChange={handleChangeClick} className="auth-reg__input" id="password" name="password" type="password" minLength="8" required></input>
