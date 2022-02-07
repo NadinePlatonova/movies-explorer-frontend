@@ -11,25 +11,32 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import MenuPage from '../MenuPage/MenuPage';
 import * as mainApi from '../../utils/MainApi';
+import * as moviesApi from '../../utils/MoviesApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { filterMoviesSearch, filterSearchByDuration } from '../../utils/filterMoviesSearch';
+import Preloader from '../Preloader/Preloader';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const pagesWithoutHeader = [
     "/signin",
     "/signup",
-    "/not-found",
   ];
 
   const pagesWithoutFooter = [
     "/signin",
     "/signup",
     "/profile",
-    "/not-found",
   ];
 
   const [isMenuPageOpened, setIsPageMenuOpened] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [movies, setMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [localData, setLocalData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [isCheckboxActive, setIsCheckboxActive] = React.useState(false);
   const history = useHistory();
 
   function handleBurgerMenu() {
@@ -39,6 +46,23 @@ function App() {
   function closeBurgerMenu() {
     setIsPageMenuOpened(false);
   }
+
+  const checkAuthStatus = React.useCallback(() => {
+    mainApi.getContent()
+      .then(() => {
+        setLoggedIn(true)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  }, []);
+
+  React.useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus]);
 
   function onRegister(data) {
     mainApi.register(data)
@@ -53,25 +77,13 @@ function App() {
   function onLogin(data) {
     mainApi.login(data)
       .then(() => {
-        setLoggedIn(true);
-        history.push("/movies");
+        setLoggedIn(true)
+        history.push("/movies")
       })
       .catch((err) => {
         console.log(err);
       })
   }
-
-  const checkAuthStatus = React.useCallback(() => {
-    mainApi.getContent()
-      .then(() => setLoggedIn(true))
-      .catch((err) => {
-        console.log(err);
-      })
-  }, []);
-
-  React.useEffect(() => {
-    checkAuthStatus()
-  }, [checkAuthStatus]);
 
   function handleUpdateUser(data) {
     mainApi.editUserInfo(data)
@@ -85,8 +97,150 @@ function App() {
 
   function handleSignOut() {
     mainApi.signout()
-    setLoggedIn(false)
+    .then(() => {
+      setLoggedIn(false);
+      localStorage.clear();
+      history.push("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
+
+  function handleSearchSubmit(search) {
+    setTimeout(() => {
+      const filteredMovies = filterMoviesSearch(search.movie, isCheckboxActive, localData);
+      localStorage.setItem('filtered', JSON.stringify(filteredMovies));
+      setMovies(filteredMovies);
+    }, 1000);
+  }
+
+  function toggleCheckboxStatus() {
+    if (!isCheckboxActive) {
+      const shortMovies = movies.filter(filterSearchByDuration);
+      setIsCheckboxActive(true);
+      setMovies(shortMovies);
+    } else {
+      setIsCheckboxActive(false);
+      const prevState = JSON.parse(localStorage.getItem('filtered'));
+      setMovies(prevState);
+    }
+  };
+
+  function handleSavedMoviesSearchSubmit(search) {
+    setTimeout(() => {
+      const filteredSavedMovies = filterMoviesSearch(search.movie, isCheckboxActive, savedMovies);
+      localStorage.setItem('savedFilter', JSON.stringify(filteredSavedMovies));
+      setSavedMovies(filteredSavedMovies);
+    }, 1000);
+  }
+
+  function toggleSavedMoviesCheckboxStatus() {
+    if (!isCheckboxActive) {
+      const shortMovies = savedMovies.filter(filterSearchByDuration);
+      setIsCheckboxActive(true);
+      localStorage.setItem('savedFilter', JSON.stringify(savedMovies));
+      setSavedMovies(shortMovies);
+    } else {
+      setIsCheckboxActive(false);
+      const prevState = JSON.parse(localStorage.getItem('savedFilter'));
+      setSavedMovies(prevState);
+    }
+  }
+
+  const toggleMovieStatus = (movie) => {
+    const movieId = `${movie.id}`
+    const isLiked = savedMovies.some((a) => a.movieId === movieId);
+
+    if (isLiked) {
+      handleDeleteMovie(movieId)
+    } else {
+      handleSaveMovie(movie)
+    }
+  }
+
+  const handleSaveMovie = (movie) => {
+    mainApi.saveMovie(movie)
+      .then((res) => {
+        const toBeSavedMovies = savedMovies.concat([res]);
+        localStorage.setItem('savedMovies', JSON.stringify(toBeSavedMovies));
+        setSavedMovies(toBeSavedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  const handleDeleteMovie = (movieId) => {
+    const toDeleteMovie = savedMovies.find((movie) => movie.movieId === movieId)
+    if (toDeleteMovie === undefined) return;
+    mainApi
+      .deleteMovie(toDeleteMovie._id)
+      .then(() => {
+        const filteredMovies = savedMovies.filter((item) => item._id !== toDeleteMovie._id)
+        localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
+        setSavedMovies(filteredMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getMovies = () => {
+    mainApi
+      .getMovies()
+      .then((res) => {
+        const savedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const ownerSavedMovies = res.filter((c) => c.owner === savedCurrentUser._id)
+        localStorage.setItem('savedMovies', JSON.stringify(ownerSavedMovies));
+        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+        setSavedMovies(savedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      const localUserData = localStorage.getItem('currentUser');
+      const localMoviesData = localStorage.getItem('movies');
+      const localSavedMoviesData = localStorage.getItem('savedMovies');
+
+      if (!localUserData) {
+        mainApi
+          .getUserInfo()
+          .then((res) => {
+            localStorage.setItem('currentUser', JSON.stringify(res));
+            setCurrentUser(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      } else {
+        setCurrentUser(JSON.parse(localUserData));
+      };
+      if (!localMoviesData) {
+        moviesApi
+          .getMovies()
+          .then((res) => {
+            localStorage.setItem('movies', JSON.stringify(res));
+            const allMovies = JSON.parse(localStorage.getItem('movies'));
+            setLocalData(allMovies);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      } else {
+        setLocalData(JSON.parse(localMoviesData));
+      };
+      if (!localSavedMoviesData) {
+        getMovies()
+      } else {
+        setSavedMovies(JSON.parse(localSavedMoviesData));
+      };
+    }
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -97,54 +251,67 @@ function App() {
           loggedIn={loggedIn}
         />)
         }
-
-        <Switch>
-          <Route exact path="/">
-            <Main
-              loggedIn={loggedIn}
-            />
-          </Route>
-          <Route path="/movies">
-            <Movies
-              loggedIn={loggedIn}
-            />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies 
-              loggedIn={loggedIn}
-            />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              onUpdateUser={handleUpdateUser}
-              onSignOut={handleSignOut}
-            />
-          </Route>
-          <Route path="/signin">
-            {loggedIn
-            ? <Redirect to="/movies" />
-            :
-            <Login
-            onLogin={onLogin}
-            />
-            }
-          </Route>
-          <Route path="/signup">
-            {loggedIn
-            ? <Redirect to="/movies" />
-            :
-            <Register
-            onRegister={onRegister}
-            />
-            }
-          </Route>
-          <Route path="*">
-            <PageNotFound />
-          </Route>
-          {/* <Route path="*">
-            <Redirect to="/not-found" />
-          </Route> */}
-        </Switch>
+        {isLoading
+          ? <Preloader />
+          : <Switch>
+              <Route exact path="/">
+                <Main
+                  loggedIn={loggedIn}
+                />
+              </Route>
+              <ProtectedRoute
+                component={Movies}
+                path="/movies"
+                loggedIn={loggedIn}
+                onSearchResults={movies}
+                savedMovies={savedMovies}
+                onSubmit={handleSearchSubmit}
+                onToggleMovieStatus={toggleMovieStatus}
+                onCheckbox={toggleCheckboxStatus}
+                isChecked={isCheckboxActive}
+              />
+              <ProtectedRoute
+                component={SavedMovies}
+                path="/saved-movies"
+                loggedIn={loggedIn}
+                onSearchResults={savedMovies}
+                savedMovies={savedMovies}
+                handleDeleteMovie={handleDeleteMovie}
+                onSubmit={handleSavedMoviesSearchSubmit}
+                onCheckbox={toggleSavedMoviesCheckboxStatus}
+                isChecked={isCheckboxActive}
+              />
+              <ProtectedRoute
+                component={Profile}
+                path="/profile"
+                onUpdateUser={handleUpdateUser}
+                onSignOut={handleSignOut}
+                loggedIn={loggedIn}
+              />
+              <Route path="/signin">
+                {loggedIn
+                ? <Redirect to="/movies" />
+                :
+                <Login
+                onLogin={onLogin}
+                />
+                }
+              </Route>
+              <Route path="/signup">
+                {loggedIn
+                ? <Redirect to="/movies" />
+                :
+                <Register
+                onRegister={onRegister}
+                />
+                }
+              </Route>
+              <Route path="*">
+                <PageNotFound />
+              </Route>
+            </Switch>
+        }
+        
         {useRouteMatch(pagesWithoutFooter) ? null : 
         (<Footer />)
         }

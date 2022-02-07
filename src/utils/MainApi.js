@@ -47,7 +47,7 @@ export const getUserInfo = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        // credentials: 'include',
     })
     .then(checkResponseStatus);
 };
@@ -88,6 +88,8 @@ export const saveMovie = (data) => {
             "year": data.year || ' ',
             "description": data.description || ' ',
             "image": `https://api.nomoreparties.co${data.image.url}`,
+            "trailer": data.trailerLink,
+            "thumbnail": `https://api.nomoreparties.co${data.image.url}`,
             "movieId": `${data.id}`,
             "nameRU": data.nameRU || ' ',
             "nameEN": data.nameEN || ' ',
