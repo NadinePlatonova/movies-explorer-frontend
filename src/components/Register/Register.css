@@ -4,6 +4,13 @@
     margin: 91px 0 16px;
 }
 
+.auth-reg__message {
+    color: #EE3465;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+}
+
 @media screen and (max-width: 767px) {
     .auth-reg__button_reg {
         margin: 179px 0 14px;

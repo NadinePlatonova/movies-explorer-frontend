@@ -30,7 +30,14 @@ function Profile(props) {
         } else {
             setIsChanged(true);
         }
-    }, [currentUser, values])
+    }, [currentUser, values]);
+
+    function handleChangeClick(e) {
+        handleChange(e)
+        if (props.profileMessage.length > 0) {
+            props.resetFormMessage();
+        }
+    }
 
     return (
         <section className="profile">
@@ -38,14 +45,15 @@ function Profile(props) {
             <form className="profile__form">
                 <div className="profile__info">
                     <label className="profile__label">Имя</label>
-                    <input onChange={handleChange} value={values["name"]} className="profile__input" id="name" name="name" type="text" minLength="2" maxLength="30" pattern="[A-Za-zА-ЯЁа-яё -]+" />
+                    <input onChange={handleChangeClick} value={values["name"]} className="profile__input" id="name" name="name" type="text" minLength="2" maxLength="30" pattern="[A-Za-zА-ЯЁа-яё -]+" />
                     <span className="profile__error">{errors["name"]}</span>
                 </div>
                 <div className="profile__info">
                     <label className="profile__label">E-mail</label>
-                    <input onChange={handleChange} value={values["email"]} className="profile__input" id="email" name="email" type="email"/>
+                    <input onChange={handleChangeClick} value={values["email"]} className="profile__input" id="email" name="email" type="email"/>
                     <span className="profile__error">{errors["email"]}</span>
                 </div>
+                <p className="profile__message">{props.profileMessage}</p>
                 <button onClick={handleSubmit} className="profile__button" type="submit" disabled={!isValid || !isChanged}>Редактировать</button>
             </form>
             <Link to="/" className="profile__link" onClick={props.onSignOut}>Выйти из аккаунта</Link>

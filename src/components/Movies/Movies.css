@@ -27,6 +27,11 @@
     cursor: pointer;
 }
 
+.movies__notfound-text {
+    color: #000;
+    text-align: center;
+}
+
 @media screen and (max-width: 1023px) {
     .movies__button {
         width: calc(100% - 30px*2);

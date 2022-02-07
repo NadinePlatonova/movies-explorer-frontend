@@ -3,6 +3,24 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies(props) {
+    const allMoviesNumber = props.allMovies.length;
+    const foundMoviesNumber = props.foundMovies.length;
+
+    function handleMoreButtonShow() {
+        return foundMoviesNumber < allMoviesNumber
+    }
+
+    function handleMoreButtonClick() {
+        let moviesToAddNumber = props.cardsRendering.add;
+        if (allMoviesNumber > foundMoviesNumber + moviesToAddNumber) {
+            props.onShowMoreMovies(foundMoviesNumber, moviesToAddNumber)
+        } else {
+            moviesToAddNumber = allMoviesNumber - foundMoviesNumber
+            if (moviesToAddNumber > 0) {
+                props.onShowMoreMovies(foundMoviesNumber, moviesToAddNumber)
+            }
+        }
+    }
 
     return (
         <section className="movies">
@@ -12,12 +30,15 @@ function Movies(props) {
                 isChecked={props.isCheckboxActive}
             />
             <MoviesCardList 
-                onSearchResults={props.onSearchResults}
+                foundMovies={props.foundMovies}
                 savedMovies={props.savedMovies}
                 handleSaveMovie={props.onToggleMovieStatus}
                 handleDeleteMovie={props.handleDeleteMovie}
             />
-            <button className="movies__button">Ещё</button>
+            {!props.isLoading && props.notFoundMovies && (
+                <p className="movies__notfound-text">Ничего не найдено</p>
+            )}
+            {handleMoreButtonShow() && <button className="movies__button" onClick={handleMoreButtonClick}>Ещё</button>}
         </section>
     )
 }

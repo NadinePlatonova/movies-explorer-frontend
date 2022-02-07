@@ -51,6 +51,9 @@
     border: 0;
     box-sizing: border-box;
     text-align: end;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .profile__input:focus {
@@ -102,9 +105,16 @@
     color: #EE3465;
     display: block;
     position: absolute;
-    bottom: 10px;
+    top: 35px;
     text-align: left;
     white-space: nowrap;
+}
+
+.profile__message {
+    color: #EE3465;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1023px) {

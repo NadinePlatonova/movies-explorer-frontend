@@ -16,6 +16,9 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { filterMoviesSearch, filterSearchByDuration } from '../../utils/filterMoviesSearch';
 import Preloader from '../Preloader/Preloader';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import { setCardsRender } from '../../utils/cardsRender';
+import { profileMessages, SERVER_ERROR_MSG, registrationMessages} from '../../utils/constants';
 
 function App() {
   const pagesWithoutHeader = [
@@ -37,7 +40,16 @@ function App() {
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [isCheckboxActive, setIsCheckboxActive] = React.useState(false);
+  const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
+  const [foundMovies, setFoundMovies] = React.useState([]);
+  const [notFoundMovies, setNotFoundMovies] = React.useState(false);
+  const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
   const history = useHistory();
+  const { width } = useWindowSize();
+
+  const resetFormMessages = () => {
+    setFormSubmitMessage('');
+  }
 
   function handleBurgerMenu() {
     setIsPageMenuOpened(true);
@@ -70,7 +82,16 @@ function App() {
         onLogin(data);
       })
       .catch((err) => {
-        console.log(err);
+        switch (err) {
+          case 400:
+            setFormSubmitMessage(registrationMessages.BAD_REQUEST_MSG);
+            break;
+          case 409:
+            setFormSubmitMessage(registrationMessages.CONFLICT_MSG);
+            break;
+          default:
+            setFormSubmitMessage(SERVER_ERROR_MSG);
+        }
       })
   }
 
@@ -88,10 +109,20 @@ function App() {
   function handleUpdateUser(data) {
     mainApi.editUserInfo(data)
       .then(res => {
-        setCurrentUser(res)
+        localStorage.setItem('currentUser', JSON.stringify(res));
+        setCurrentUser(res);
+      })
+      .then(() => {
+        setFormSubmitMessage(profileMessages.SUCCESS_MSG);
       })
       .catch((err) => {
-        console.log(err);
+        switch (err) {
+          case 409:
+            setFormSubmitMessage(profileMessages.CONFLICT_MSG);
+            break;
+          default:
+            setFormSubmitMessage(profileMessages.BAD_REQUEST_MSG);
+        }
       })
   }
 
@@ -111,7 +142,14 @@ function App() {
     setTimeout(() => {
       const filteredMovies = filterMoviesSearch(search.movie, isCheckboxActive, localData);
       localStorage.setItem('filtered', JSON.stringify(filteredMovies));
+
+      if (filteredMovies.length === 0) {
+        setNotFoundMovies(true);
+      } else {
+        setNotFoundMovies(false);
+      }
       setMovies(filteredMovies);
+      setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
     }, 1000);
   }
 
@@ -120,11 +158,18 @@ function App() {
       const shortMovies = movies.filter(filterSearchByDuration);
       setIsCheckboxActive(true);
       setMovies(shortMovies);
+      setFoundMovies(shortMovies.slice(0, cardsRendering.total))
     } else {
       setIsCheckboxActive(false);
       const prevState = JSON.parse(localStorage.getItem('filtered'));
       setMovies(prevState);
+      setFoundMovies(prevState.slice(0, cardsRendering.total))
     }
+  };
+
+  const handleShowMoreMovies = (index, limit) => {
+    const newMovies = movies.slice(0, index + limit);
+    setFoundMovies(newMovies); 
   };
 
   function handleSavedMoviesSearchSubmit(search) {
@@ -242,6 +287,10 @@ function App() {
     }
   }, [loggedIn]);
 
+  React.useEffect(() => {
+    setCardsRendering(setCardsRender(width));
+  }, [width]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -263,10 +312,14 @@ function App() {
                 component={Movies}
                 path="/movies"
                 loggedIn={loggedIn}
-                onSearchResults={movies}
+                allMovies={movies}
+                foundMovies={foundMovies}
                 savedMovies={savedMovies}
                 onSubmit={handleSearchSubmit}
                 onToggleMovieStatus={toggleMovieStatus}
+                cardsRendering={cardsRendering}
+                notFoundMovies={notFoundMovies}
+                onShowMoreMovies={handleShowMoreMovies}
                 onCheckbox={toggleCheckboxStatus}
                 isChecked={isCheckboxActive}
               />
@@ -274,7 +327,7 @@ function App() {
                 component={SavedMovies}
                 path="/saved-movies"
                 loggedIn={loggedIn}
-                onSearchResults={savedMovies}
+                foundMovies={savedMovies}
                 savedMovies={savedMovies}
                 handleDeleteMovie={handleDeleteMovie}
                 onSubmit={handleSavedMoviesSearchSubmit}
@@ -287,13 +340,16 @@ function App() {
                 onUpdateUser={handleUpdateUser}
                 onSignOut={handleSignOut}
                 loggedIn={loggedIn}
+                profileMessage={formSubmitMessage}
+                resetFormMessage={resetFormMessages}
+
               />
               <Route path="/signin">
                 {loggedIn
                 ? <Redirect to="/movies" />
                 :
                 <Login
-                onLogin={onLogin}
+                  onLogin={onLogin}
                 />
                 }
               </Route>
@@ -302,7 +358,9 @@ function App() {
                 ? <Redirect to="/movies" />
                 :
                 <Register
-                onRegister={onRegister}
+                  onRegister={onRegister}
+                  formSubmitMessage={formSubmitMessage}
+                  resetFormMessage={resetFormMessages}
                 />
                 }
               </Route>
