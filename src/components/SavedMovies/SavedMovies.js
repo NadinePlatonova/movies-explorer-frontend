@@ -12,7 +12,7 @@ function SavedMovies(props) {
                 isChecked={props.isCheckboxActive}
             />
             <MoviesCardList
-                foundMovies={props.foundMovies}
+                searchResults={props.searchResults}
                 savedMovies={props.savedMovies}
                 handleDeleteMovie={props.handleDeleteMovie}
             />
