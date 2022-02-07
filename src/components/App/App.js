@@ -195,7 +195,7 @@ function App() {
 
   const toggleMovieStatus = (movie) => {
     const movieId = `${movie.id}`
-    const isLiked = savedMovies.some((a) => a.movieId === movieId);
+    const isLiked = savedMovies.some((i) => i.movieId === movieId);
 
     if (isLiked) {
       handleDeleteMovie(movieId)

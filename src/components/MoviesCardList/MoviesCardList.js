@@ -10,7 +10,7 @@ function MoviesCardList(props) {
                             key={item._id}
                             card={item}
                             isLiked={props.savedMovies.some((i) => {
-                                return i.movieId === `${item._id}` ? true : false
+                                return i.movieId === item._id ? true : false
                             })}
                             handleSaveMovie={props.handleSaveMovie}
                             handleDeleteMovie={props.handleDeleteMovie}
