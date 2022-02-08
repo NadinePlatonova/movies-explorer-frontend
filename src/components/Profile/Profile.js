@@ -50,7 +50,8 @@ function Profile(props) {
                 </div>
                 <div className="profile__info">
                     <label className="profile__label">E-mail</label>
-                    <input onChange={handleChangeClick} value={values["email"]} className="profile__input" id="email" name="email" type="email" pattern="/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i"/>
+                    <input onChange={handleChangeClick} value={values["email"]} className="profile__input" id="email" name="email" type="email"
+                        pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}" />
                     <span className="profile__error">{errors["email"]}</span>
                 </div>
                 <p className="profile__message">{props.profileMessage}</p>
