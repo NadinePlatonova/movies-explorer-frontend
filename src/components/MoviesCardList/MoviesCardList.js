@@ -7,11 +7,11 @@ function MoviesCardList(props) {
             {props.searchResults.map((item) => {
                     return (
                         <MoviesCard
-                            key={item._id}
+                            key={item.id}
                             card={item}
-                            isLiked={props.savedMovies.some((i) => {
-                                return i.movieId === `${item.id}` ? true : false
-                            })}
+                            isLiked={props.savedMovies.some((i) => 
+                                i.movieId === item.id ? true : false
+                            )}
                             handleSaveMovie={props.handleSaveMovie}
                             handleDeleteMovie={props.handleDeleteMovie}
                         />
