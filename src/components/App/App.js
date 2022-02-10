@@ -192,7 +192,7 @@ function App() {
     if (!isCheckboxActive) {
       const shortMovies = savedMovies.filter(filterSearchByDuration);
       setIsCheckboxActive(true);
-      localStorage.setItem('savedFilter', JSON.stringify(savedMovies));
+      localStorage.setItem('savedFilter', JSON.stringify(shortMovies));
       setSavedMovies(shortMovies);
     } else {
       setIsCheckboxActive(false);
