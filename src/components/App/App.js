@@ -43,6 +43,7 @@ function App() {
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
+  const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
   const history = useHistory();
   const { width } = useWindowSize();
@@ -174,8 +175,15 @@ function App() {
 
   function handleSavedMoviesSearchSubmit(search) {
     setTimeout(() => {
-      const filteredSavedMovies = filterMoviesSearch(search.movie, isCheckboxActive, savedMovies);
+      const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      const filteredSavedMovies = filterMoviesSearch(search.movie, isCheckboxActive, allSavedMovies);
       localStorage.setItem('savedFilter', JSON.stringify(filteredSavedMovies));
+
+      if (filteredSavedMovies.length === 0) {
+        setNotFoundSavedMovies(true);
+      } else {
+        setNotFoundSavedMovies(false);
+      }
       setSavedMovies(filteredSavedMovies);
     }, 1000);
   }
@@ -329,7 +337,7 @@ function App() {
                 loggedIn={loggedIn}
                 searchResults={savedMovies}
                 savedMovies={savedMovies}
-                notFoundMovies={notFoundMovies}
+                notFoundMovies={notFoundSavedMovies}
                 handleDeleteMovie={handleDeleteMovie}
                 onSubmit={handleSavedMoviesSearchSubmit}
                 onCheckbox={toggleSavedMoviesCheckboxStatus}

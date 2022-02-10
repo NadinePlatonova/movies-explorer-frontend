@@ -1,13 +1,13 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import setImageUrl from '../../utils/setImageUrl';
+import { durationFormat } from '../../utils/constants';
 
 function MoviesCard(props) {
     const location = useLocation();
     const isSavedMovies = location.pathname === '/saved-movies';
     const movieButtonClassName = (`movies-card__button ${isSavedMovies ? 'movies-card__button_type_delete' : (props.isLiked ? 'movies-card__button_type_active' : '')}`);
-    const duration = `${Math.round(props.card.duration / 60)}ч ${props.card.duration % 60}м`;
-
+    
     function handleButtonClick() {
         if (isSavedMovies) {
             props.handleDeleteMovie(props.card.movieId)
@@ -24,7 +24,7 @@ function MoviesCard(props) {
             <div className="movies-card__container">
                 <div className="movies-card__info">
                     <h3 className="movies-card__title">{props.card.nameRU}</h3>
-                    <p className="movies-card__duration">{duration}</p>
+                    <p className="movies-card__duration">{durationFormat(props.card.duration)}</p>
                 </div>
                 <button className={movieButtonClassName} onClick={handleButtonClick}></button>
             </div>

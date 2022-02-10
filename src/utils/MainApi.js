@@ -47,7 +47,7 @@ export const getUserInfo = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-        // credentials: 'include',
+        credentials: 'include',
     })
     .then(checkResponseStatus);
 };

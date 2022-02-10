@@ -10,3 +10,14 @@ export const registrationMessages = {
     BAD_REQUEST_MSG: 'При регистрации произошла ошибка',
     CONFLICT_MSG: 'Данный e-mail уже используется другим пользователем',
 }
+
+export const durationFormat = (min) => {
+    const h = Math.floor(min / 60);
+    const m = min % 60;
+
+    if (h >=1) {
+        return `${h}ч ${m}м`;
+    } else {
+        return `${m}м`;
+    }
+}

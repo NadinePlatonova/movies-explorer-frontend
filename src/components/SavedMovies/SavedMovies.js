@@ -16,6 +16,9 @@ function SavedMovies(props) {
                 savedMovies={props.savedMovies}
                 handleDeleteMovie={props.handleDeleteMovie}
             />
+            {!props.isLoading && props.notFoundMovies && (
+                <p className="movies__notfound-text">Ничего не найдено</p>
+            )}
             <div className="movies__saved-divider"></div>
         </section>
     )
