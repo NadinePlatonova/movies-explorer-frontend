@@ -9,7 +9,7 @@ function SavedMovies(props) {
             <SearchForm 
                 onSubmit={props.onSubmit}
                 onCheckbox={props.onCheckbox}
-                isChecked={props.isCheckboxActive}
+                isChecked={props.isChecked}
             />
             <MoviesCardList
                 searchResults={props.searchResults}
