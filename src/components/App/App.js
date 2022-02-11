@@ -193,7 +193,7 @@ function App() {
     if (!checked) {
       const shortMovies = savedMovies.filter(filterSearchByDuration);
       setChecked(true);
-      localStorage.setItem('savedFilter', JSON.stringify(savedMovies));
+      localStorage.setItem('savedFilter', JSON.stringify(shortMovies));
       setSavedMovies(shortMovies);
     } else {
       setChecked(false);
@@ -204,7 +204,10 @@ function App() {
 
   const toggleMovieStatus = (movie) => {
     const movieId = `${movie.id}`
-    const isLiked = savedMovies.some((i) => i.movieId === movieId);
+    // const isLiked = savedMovies.some((i) => i.movieId === movieId);
+    const isLiked = savedMovies.some((i) =>
+      i.movieId === movieId ? true : false
+    )
 
     if (isLiked) {
       handleDeleteMovie(movieId)
