@@ -27,7 +27,7 @@ function Movies(props) {
             <SearchForm
                 onSubmit={props.onSubmit}
                 onCheckbox={props.onCheckbox}
-                isChecked={props.isChecked}
+                isChecked={props.isCheckboxActive}
             />
             <MoviesCardList 
                 searchResults={props.searchResults}
