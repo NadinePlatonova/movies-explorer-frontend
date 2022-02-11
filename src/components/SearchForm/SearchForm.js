@@ -27,7 +27,7 @@ function SearchForm(props) {
                     <span className="search__error">{errors["movie"]}</span>
                     <button className="search__button" type="submit" aria-label="Искать" disabled={!isValid}></button>
                 </div>
-                <FilterCheckbox onChange={handleCheckbox} isChecked={props.isChecked} />
+                <FilterCheckbox onChange={handleCheckbox} checked={props.isChecked} />
             </form>
         </section>
     )
