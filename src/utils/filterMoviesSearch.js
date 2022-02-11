@@ -1,5 +1,5 @@
-export const filterSearchByDuration = (item) => {
-    return item.duration <= 40;
+export const filterSearchByDuration = (movie) => {
+    return movie.duration <= 40;
 }
 
 export const filterMoviesSearch = (search, isShortMovieClicked, movies) => {
