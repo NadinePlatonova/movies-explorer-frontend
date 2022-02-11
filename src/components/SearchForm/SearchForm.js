@@ -15,9 +15,9 @@ function SearchForm(props) {
         props.onSubmit(values);
     }
 
-    const handleCheckbox = (e) => {
-        props.onCheckbox(e.target.checked);
-    }
+    // const handleCheckbox = (e) => {
+    //     props.onCheckbox(e.target.checked);
+    // }
 
     return (
         <section className="search">
@@ -27,7 +27,7 @@ function SearchForm(props) {
                     <span className="search__error">{errors["movie"]}</span>
                     <button className="search__button" type="submit" aria-label="Искать" disabled={!isValid}></button>
                 </div>
-                <FilterCheckbox onChange={handleCheckbox} checked={props.isChecked} />
+                <FilterCheckbox onChange={props.onCheckbox} checked={props.isChecked} />
             </form>
         </section>
     )

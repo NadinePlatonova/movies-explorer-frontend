@@ -3,7 +3,7 @@ import React from 'react';
 function FilterCheckbox(props) {
     return (
         <label className="filter-checkbox">Короткометражки
-            <input className="filter-checkbox__input" type="checkbox" onChange={props.onChange} isChecked={props.isChecked} />
+            <input className="filter-checkbox__input" type="checkbox" onChange={props.onChange} checked={props.isChecked} />
             <span className="filter-checkbox__slider"></span>
         </label>
     )
