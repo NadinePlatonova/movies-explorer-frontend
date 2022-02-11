@@ -12,5 +12,3 @@ export const filterMoviesSearch = (search, isShortMovieClicked, movies) => {
         return movies.filter(filterSearchByKeyword);
     }
 }
-
-export default filterMoviesSearch;
