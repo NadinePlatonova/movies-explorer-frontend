@@ -203,7 +203,6 @@ function App() {
   }
 
   const toggleMovieStatus = (movie) => {
-    console.log(movie.id);
     const isLiked = savedMovies.some((i) =>
       i.movieId === movie.id ? true : false
     )

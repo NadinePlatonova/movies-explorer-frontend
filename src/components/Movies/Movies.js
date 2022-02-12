@@ -21,7 +21,6 @@ function Movies(props) {
             }
         }
     }
-    console.log(props.checked)
 
     return (
         <section className="movies">

@@ -3,7 +3,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies(props) {
-    console.log(props.checked)
 
     return (
         <section className="movies">

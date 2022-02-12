@@ -1,7 +1,7 @@
 const cardsRendering = {
     large: { total: 12, add: 3 },
     middle: { total: 8, add: 2 },
-    small: {total: 5, add: 1 },
+    small: { total: 5, add: 1 },
 };
 
 export const setCardsRender = (windowWidth) => {

@@ -15,10 +15,6 @@ function SearchForm(props) {
         props.onSubmit(values);
     }
 
-    // const handleCheckbox = (e) => {
-    //     props.onCheckbox(e.target.checked);
-    // }
-    console.log(props.checked)
     return (
         <section className="search">
             <form className="search__form" onSubmit={handleSubmit}>
