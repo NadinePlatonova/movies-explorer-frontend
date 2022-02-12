@@ -21,14 +21,14 @@ function Movies(props) {
             }
         }
     }
-    console.log(props.isChecked)
+    console.log(props.checked)
 
     return (
         <section className="movies">
             <SearchForm
                 onSubmit={props.onSubmit}
                 onCheckbox={props.onCheckbox}
-                checked={props.isChecked}
+                checked={props.checked}
             />
             <MoviesCardList 
                 searchResults={props.searchResults}

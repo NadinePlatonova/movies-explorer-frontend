@@ -40,6 +40,7 @@ function App() {
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [isChecked, setIsChecked] = React.useState(false);
+  const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
@@ -176,7 +177,7 @@ function App() {
   function handleSavedMoviesSearchSubmit(search) {
     setTimeout(() => {
       const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-      const filteredSavedMovies = filterMoviesSearch(search.movie, isChecked, allSavedMovies);
+      const filteredSavedMovies = filterMoviesSearch(search.movie, isSavedMoviesChecked, allSavedMovies);
       localStorage.setItem('savedFilter', JSON.stringify(filteredSavedMovies));
 
       if (filteredSavedMovies.length === 0) {
@@ -189,13 +190,13 @@ function App() {
   }
 
   function toggleSavedMoviesCheckboxStatus() {
-    if (!isChecked) {
+    if (!isSavedMoviesChecked) {
       const shortMovies = savedMovies.filter(filterSearchByDuration);
-      setIsChecked(true);
+      setIsSavedMoviesChecked(true);
       localStorage.setItem('savedFilter', JSON.stringify(savedMovies));
       setSavedMovies(shortMovies);
     } else {
-      setIsChecked(false);
+      setIsSavedMoviesChecked(false);
       const prevState = JSON.parse(localStorage.getItem('savedFilter'));
       setSavedMovies(prevState);
     }
@@ -343,7 +344,7 @@ function App() {
                 handleDeleteMovie={handleDeleteMovie}
                 onSubmit={handleSavedMoviesSearchSubmit}
                 onCheckbox={toggleSavedMoviesCheckboxStatus}
-                checked={isChecked}
+                checked={isSavedMoviesChecked}
               />
               <ProtectedRoute
                 component={Profile}
