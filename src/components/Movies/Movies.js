@@ -22,7 +22,6 @@ function Movies(props) {
         }
     }
     console.log(props.checked)
-    console.log(props.onToggleMovieStatus)
 
     return (
         <section className="movies">

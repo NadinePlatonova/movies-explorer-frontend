@@ -39,7 +39,6 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [isCheckboxActive, setIsCheckboxActive] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState([]);
@@ -204,8 +203,6 @@ function App() {
 
   const toggleMovieStatus = (movie) => {
     console.log(movie.id);
-    // const movieId = `${movie.id}`
-    // const isLiked = savedMovies.some((i) => i.movieId === movieId);
     const isLiked = savedMovies.some((i) =>
       i.movieId === movie.id ? true : false
     )
