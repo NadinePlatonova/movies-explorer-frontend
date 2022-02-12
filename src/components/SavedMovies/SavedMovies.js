@@ -3,14 +3,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies(props) {
-    console.log(props.checked)
+    console.log(props.isChecked)
 
     return (
         <section className="movies">
             <SearchForm 
                 onSubmit={props.onSubmit}
                 onCheckbox={props.onCheckbox}
-                checked={!props.checked}
+                checked={props.isChecked}
             />
             <MoviesCardList
                 searchResults={props.searchResults}

@@ -39,7 +39,7 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [checked, setChecked] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
@@ -141,7 +141,7 @@ function App() {
 
   function handleSearchSubmit(search) {
     setTimeout(() => {
-      const filteredMovies = filterMoviesSearch(search.movie, checked, localData);
+      const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
       localStorage.setItem('filtered', JSON.stringify(filteredMovies));
 
       if (filteredMovies.length === 0) {
@@ -155,13 +155,13 @@ function App() {
   }
 
   function toggleCheckboxStatus() {
-    if (!checked) {
+    if (!isChecked) {
       const shortMovies = movies.filter(filterSearchByDuration);
-      setChecked(true);
+      setIsChecked(true);
       setMovies(shortMovies);
       setFoundMovies(shortMovies.slice(0, cardsRendering.total))
     } else {
-      setChecked(false);
+      setIsChecked(false);
       const prevState = JSON.parse(localStorage.getItem('filtered'));
       setMovies(prevState);
       setFoundMovies(prevState.slice(0, cardsRendering.total))
@@ -176,7 +176,7 @@ function App() {
   function handleSavedMoviesSearchSubmit(search) {
     setTimeout(() => {
       const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-      const filteredSavedMovies = filterMoviesSearch(search.movie, checked, allSavedMovies);
+      const filteredSavedMovies = filterMoviesSearch(search.movie, isChecked, allSavedMovies);
       localStorage.setItem('savedFilter', JSON.stringify(filteredSavedMovies));
 
       if (filteredSavedMovies.length === 0) {
@@ -189,13 +189,13 @@ function App() {
   }
 
   function toggleSavedMoviesCheckboxStatus() {
-    if (!checked) {
+    if (!isChecked) {
       const shortMovies = savedMovies.filter(filterSearchByDuration);
-      setChecked(true);
+      setIsChecked(true);
       localStorage.setItem('savedFilter', JSON.stringify(savedMovies));
       setSavedMovies(shortMovies);
     } else {
-      setChecked(false);
+      setIsChecked(false);
       const prevState = JSON.parse(localStorage.getItem('savedFilter'));
       setSavedMovies(prevState);
     }
@@ -331,7 +331,7 @@ function App() {
                 notFoundMovies={notFoundMovies}
                 onShowMoreMovies={handleShowMoreMovies}
                 onCheckbox={toggleCheckboxStatus}
-                checked={checked}
+                checked={isChecked}
               />
               <ProtectedRoute
                 component={SavedMovies}
@@ -343,7 +343,7 @@ function App() {
                 handleDeleteMovie={handleDeleteMovie}
                 onSubmit={handleSavedMoviesSearchSubmit}
                 onCheckbox={toggleSavedMoviesCheckboxStatus}
-                checked={checked}
+                checked={isChecked}
               />
               <ProtectedRoute
                 component={Profile}
