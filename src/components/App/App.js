@@ -145,8 +145,8 @@ function App() {
     console.log(search.movie)
     setTimeout(() => {
       const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
-      localStorage.setItem('filtered', JSON.stringify(filteredMovies));
-      localStorage.setItem('filteredText', JSON.stringify(search));
+      localStorage.setItem('filtered', JSON.stringify(search.movie, filteredMovies));
+      // localStorage.setItem('filteredText', JSON.stringify(search));
 
       if (filteredMovies.length === 0) {
         setNotFoundMovies(true);
