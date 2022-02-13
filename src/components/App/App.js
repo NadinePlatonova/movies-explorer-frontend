@@ -141,6 +141,7 @@ function App() {
   }
 
   function handleSearchSubmit(search) {
+    console.log(search.movie)
     setTimeout(() => {
       const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
       localStorage.setItem('filtered', JSON.stringify(filteredMovies));

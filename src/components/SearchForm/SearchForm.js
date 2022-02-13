@@ -19,7 +19,7 @@ function SearchForm(props) {
         <section className="search">
             <form className="search__form" onSubmit={handleSubmit}>
                 <div className="search__container">
-                    <input className="search__input" placeholder="Фильм" type="text" name ="movie" id="movie" required onChange={handleChange}/>
+                    <input className="search__input" placeholder="Фильм" type="text" name="movie" id="movie" required onChange={handleChange}/>
                     <span className="search__error">{errors["movie"]}</span>
                     <button className="search__button" type="submit" aria-label="Искать" disabled={!isValid}></button>
                 </div>
