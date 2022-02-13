@@ -81,9 +81,9 @@ function App() {
   React.useEffect(() => {
     const localFilteredMoviesData = JSON.parse(localStorage.getItem('filtered'));
     if (localFilteredMoviesData) {
-      setLocalData(localFilteredMoviesData);
+      setMovies(localFilteredMoviesData);
     } else {
-      setLocalData([]);
+      setMovies([]);
     }
   }, []);
 
