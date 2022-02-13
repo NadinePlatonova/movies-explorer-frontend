@@ -78,15 +78,6 @@ function App() {
     checkAuthStatus();
   }, [checkAuthStatus]);
 
-  React.useEffect(() => {
-    const localFilteredMoviesData = JSON.parse(localStorage.getItem('filtered'));
-    if (localFilteredMoviesData) {
-      setMovies(localFilteredMoviesData);
-    } else {
-      setMovies([]);
-    }
-  }, []);
-
   function onRegister(data) {
     mainApi.register(data)
       .then(() => {
@@ -155,6 +146,7 @@ function App() {
     setTimeout(() => {
       const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
       localStorage.setItem('filtered', JSON.stringify(filteredMovies));
+      localStorage.setItem('filteredText', JSON.stringify(search));
 
       if (filteredMovies.length === 0) {
         setNotFoundMovies(true);
@@ -273,6 +265,7 @@ function App() {
       const localUserData = localStorage.getItem('currentUser');
       const localMoviesData = localStorage.getItem('movies');
       const localSavedMoviesData = localStorage.getItem('savedMovies');
+      // const localFilteredMoviesData = localStorage.getItem('filtered')
 
       if (!localUserData) {
         mainApi
@@ -306,6 +299,9 @@ function App() {
       } else {
         setSavedMovies(JSON.parse(localSavedMoviesData));
       };
+      // if (localFilteredMoviesData) {
+      //   localStorage.setItem('filtered', JSON.stringify(movies))
+      // }
     }
   }, [loggedIn]);
 
