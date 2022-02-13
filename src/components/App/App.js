@@ -78,6 +78,15 @@ function App() {
     checkAuthStatus();
   }, [checkAuthStatus]);
 
+  React.useEffect(() => {
+    const localFilteredMoviesData = JSON.parse(localStorage.getItem('filtered'));
+    if (localFilteredMoviesData) {
+      setLocalData(localFilteredMoviesData);
+    } else {
+      setLocalData([]);
+    }
+  }, []);
+
   function onRegister(data) {
     mainApi.register(data)
       .then(() => {
@@ -257,15 +266,7 @@ function App() {
         console.log(err);
       })
   }
-  
-  React.useEffect(() => {
-    const localFilteredMoviesData = localStorage.getItem('filtered');
-    if (localFilteredMoviesData) {
-      setMovies(JSON.parse(localFilteredMoviesData));
-    } else {
-      setMovies([]);
-    }
-  }, []);
+
 
   React.useEffect(() => {
     if (loggedIn) {
