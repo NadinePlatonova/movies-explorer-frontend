@@ -140,7 +140,7 @@ function App() {
     })
   }
 
-  function handleSearchSubmit(search) {
+  function handleSearchSubmit({ search }) {
     console.log(search.movie)
     setTimeout(() => {
       const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
@@ -262,6 +262,7 @@ function App() {
       const localUserData = localStorage.getItem('currentUser');
       const localMoviesData = localStorage.getItem('movies');
       const localSavedMoviesData = localStorage.getItem('savedMovies');
+      const localFilteredMoviesData = localStorage.getItem('filtered');
 
       if (!localUserData) {
         mainApi
@@ -295,6 +296,11 @@ function App() {
       } else {
         setSavedMovies(JSON.parse(localSavedMoviesData));
       };
+      if (localFilteredMoviesData) {
+        setLocalData(JSON.parse(localFilteredMoviesData));
+      } else {
+        setLocalData([]);
+      }
     }
   }, [loggedIn]);
 
