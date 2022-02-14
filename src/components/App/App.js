@@ -143,6 +143,10 @@ function App() {
     })
   }
 
+  const handleSearchInputChange = (e) => {
+    setKeyword(e.target.value)
+  }
+
   function handleSearchSubmit(search) {
     console.log(search)
     console.log(search.movie)
@@ -265,12 +269,6 @@ function App() {
   }
 
   React.useEffect(() => {
-    const searchText = localStorage.getItem('searchText') || ''
-    setKeyword(searchText)
-  }, []
-  )
-
-  React.useEffect(() => {
     if (loggedIn) {
       const localUserData = localStorage.getItem('currentUser');
       const localMoviesData = localStorage.getItem('movies');
@@ -351,6 +349,7 @@ function App() {
                 onCheckbox={toggleCheckboxStatus}
                 checked={isChecked}
                 keyword={keyword}
+                onSearchInputChange={handleSearchInputChange}
               />
               <ProtectedRoute
                 component={SavedMovies}
