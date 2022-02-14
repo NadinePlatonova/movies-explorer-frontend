@@ -140,6 +140,7 @@ function App() {
       localStorage.clear('savedMoviesSearchText')
       setFoundMovies([]);
       setKeyword('');
+      setSavedMoviesKeyword('');
       history.push("/");
     })
     .catch((err) => {
