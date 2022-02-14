@@ -35,7 +35,7 @@ function App() {
   const [isMenuPageOpened, setIsPageMenuOpened] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
+  const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -46,7 +46,7 @@ function App() {
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
-  const [keyword, setKeyword] = React.useState('');
+  const [keyword, setKeyword] = React.useState({});
   const history = useHistory();
   const { width } = useWindowSize();
 
@@ -133,7 +133,9 @@ function App() {
     mainApi.signout()
     .then(() => {
       setLoggedIn(false);
-      localStorage.clear();
+      localStorage.clear('filtered');
+      localStorage.clear('searchText');
+      setFoundMovies([]);
       history.push("/");
     })
     .catch((err) => {
