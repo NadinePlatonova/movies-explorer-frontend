@@ -39,7 +39,7 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isChecked, setIsChecked] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(localStorage.getItem('filtered') || false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
@@ -136,6 +136,7 @@ function App() {
       localStorage.clear('filtered');
       localStorage.clear('searchText');
       setFoundMovies([]);
+      setKeyword('')
       history.push("/");
     })
     .catch((err) => {
@@ -144,27 +145,23 @@ function App() {
   }
 
   const handleSearchInputChange = (e) => {
-    setKeyword(e.target.value)
+    setKeyword(e.target.value);
   }
 
   function handleSearchSubmit(search) {
-    console.log(search)
-    console.log(search.movie)
-  
-      const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
-      localStorage.setItem('searchText', search.movie);
-      localStorage.setItem('filtered', JSON.stringify(filteredMovies));
-      
-
-      if (filteredMovies.length === 0) {
-        setNotFoundMovies(true);
-      } else {
+    const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
+    localStorage.setItem('searchText', search.movie);
+    localStorage.setItem('filtered', JSON.stringify(filteredMovies));
+    
+    if (filteredMovies.length === 0) {
+      setNotFoundMovies(true);
+    } else {
         setNotFoundMovies(false);
       }
-      setMovies(filteredMovies);
-      setKeyword(search.movie)
-      setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
- 
+      
+    setMovies(filteredMovies);
+    setKeyword(search.movie);
+    setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
   }
 
   function toggleCheckboxStatus() {
