@@ -39,7 +39,7 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isChecked, setIsChecked] = React.useState(localStorage.getItem('filteredSlider') || false);
+  const [isChecked, setIsChecked] = React.useState(localStorage.getItem('filtered') || false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
@@ -137,6 +137,7 @@ function App() {
       localStorage.clear('searchText');
       setFoundMovies([]);
       setKeyword('');
+      setIsChecked(false);
       history.push("/");
     })
     .catch((err) => {
@@ -152,7 +153,7 @@ function App() {
     const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
     localStorage.setItem('searchText', search.movie);
     localStorage.setItem('filtered', JSON.stringify(filteredMovies));
-    localStorage.setItem('filteredSlider', isChecked);
+    // localStorage.setItem('filteredSlider', isChecked);
     
     if (filteredMovies.length === 0) {
       setNotFoundMovies(true);
@@ -162,7 +163,7 @@ function App() {
 
     setMovies(filteredMovies);
     setKeyword(search.movie);
-    setIsChecked(isChecked);
+    setIsChecked(filteredMovies);
     setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
   }
 
