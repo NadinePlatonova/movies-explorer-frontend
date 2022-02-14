@@ -144,20 +144,19 @@ function App() {
     console.log(search)
     console.log(search.movie)
     setTimeout(() => {
-      // const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
+      const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
       localStorage.setItem('searchText', JSON.stringify(search.movie));
-      const keyword = JSON.parse(localStorage.getItem('searchText'))
-      const filterMovies = filterMoviesSearch(keyword, isChecked, localData);
-      localStorage.setItem('filtered', JSON.stringify(filterMovies));
+      // const keyword = JSON.parse(localStorage.getItem('searchText'))
+      localStorage.setItem('filtered', JSON.stringify(filteredMovies));
       
 
-      if (filterMovies.length === 0) {
+      if (filteredMovies.length === 0) {
         setNotFoundMovies(true);
       } else {
         setNotFoundMovies(false);
       }
-      setMovies(filterMovies);
-      setFoundMovies(filterMovies.slice(0, cardsRendering.total))
+      setMovies(filteredMovies);
+      setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
     }, 1000);
   }
 
