@@ -46,7 +46,7 @@ function App() {
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
-  const [keyword, setKeyword] = React.useState({});
+  const [keyword, setKeyword] = React.useState(localStorage.getItem('searchText') || '');
   const history = useHistory();
   const { width } = useWindowSize();
 
@@ -146,10 +146,9 @@ function App() {
   function handleSearchSubmit(search) {
     console.log(search)
     console.log(search.movie)
-    setTimeout(() => {
+  
       const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
-      localStorage.setItem('searchText', JSON.stringify(search.movie));
-      const searchText = JSON.parse(localStorage.getItem('searchText'))
+      localStorage.setItem('searchText', search.movie);
       localStorage.setItem('filtered', JSON.stringify(filteredMovies));
       
 
@@ -159,9 +158,9 @@ function App() {
         setNotFoundMovies(false);
       }
       setMovies(filteredMovies);
-      setKeyword(searchText)
+      setKeyword(search.movie)
       setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
-    }, 1000);
+ 
   }
 
   function toggleCheckboxStatus() {
