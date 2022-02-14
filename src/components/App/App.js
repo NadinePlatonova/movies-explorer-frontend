@@ -42,10 +42,11 @@ function App() {
   const [isChecked, setIsChecked] = React.useState(false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
-  const [foundMovies, setFoundMovies] = React.useState([]);
+  const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
+  const [keyword, setKeyword] = React.useState('');
   const history = useHistory();
   const { width } = useWindowSize();
 
@@ -146,7 +147,7 @@ function App() {
     setTimeout(() => {
       const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
       localStorage.setItem('searchText', JSON.stringify(search.movie));
-      // const keyword = JSON.parse(localStorage.getItem('searchText'))
+      const searchText = JSON.parse(localStorage.getItem('searchText'))
       localStorage.setItem('filtered', JSON.stringify(filteredMovies));
       
 
@@ -156,6 +157,7 @@ function App() {
         setNotFoundMovies(false);
       }
       setMovies(filteredMovies);
+      setKeyword(searchText)
       setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
     }, 1000);
   }
@@ -342,6 +344,7 @@ function App() {
                 onShowMoreMovies={handleShowMoreMovies}
                 onCheckbox={toggleCheckboxStatus}
                 checked={isChecked}
+                keyword={keyword}
               />
               <ProtectedRoute
                 component={SavedMovies}

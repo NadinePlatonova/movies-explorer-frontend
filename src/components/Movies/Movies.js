@@ -28,6 +28,7 @@ function Movies(props) {
                 onSubmit={props.onSubmit}
                 onCheckbox={props.onCheckbox}
                 checked={props.checked}
+                keyword={props.keyword}
             />
             <MoviesCardList 
                 searchResults={props.searchResults}
