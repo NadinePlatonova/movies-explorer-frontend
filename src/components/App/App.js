@@ -264,6 +264,11 @@ function App() {
       })
   }
 
+  React.useEffect(() => {
+    const searchText = localStorage.getItem('searchText') || ''
+    setKeyword(searchText)
+  }, []
+  )
 
   React.useEffect(() => {
     if (loggedIn) {
