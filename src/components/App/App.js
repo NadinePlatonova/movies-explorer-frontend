@@ -36,10 +36,10 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
-  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState(localStorage.getItem('savedFilter') ? JSON.parse(localStorage.getItem('savedFilter')) : []);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isChecked, setIsChecked] = React.useState(localStorage.getItem('filtered') || false);
+  const [isChecked, setIsChecked] = React.useState(false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
@@ -47,6 +47,7 @@ function App() {
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
   const [keyword, setKeyword] = React.useState(localStorage.getItem('searchText') || '');
+  const [savedMoviesKeyword, setSavedMoviesKeyword] = React.useState(localStorage.getItem('savedMoviesSearchText') || '');
   const history = useHistory();
   const { width } = useWindowSize();
 
@@ -135,9 +136,10 @@ function App() {
       setLoggedIn(false);
       localStorage.clear('filtered');
       localStorage.clear('searchText');
+      localStorage.clear('savedFilter');
+      localStorage.clear('savedMoviesSearchText')
       setFoundMovies([]);
       setKeyword('');
-      setIsChecked(false);
       history.push("/");
     })
     .catch((err) => {
@@ -147,6 +149,10 @@ function App() {
 
   const handleSearchInputChange = (e) => {
     setKeyword(e.target.value);
+  }
+
+  const handleSavedMoviesInputChange = (e) => {
+    setSavedMoviesKeyword(e.target.value);
   }
 
   function handleSearchSubmit(search) {
@@ -163,7 +169,6 @@ function App() {
 
     setMovies(filteredMovies);
     setKeyword(search.movie);
-    setIsChecked(filteredMovies);
     setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
   }
 
@@ -187,9 +192,9 @@ function App() {
   };
 
   function handleSavedMoviesSearchSubmit(search) {
-    setTimeout(() => {
       const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
       const filteredSavedMovies = filterMoviesSearch(search.movie, isSavedMoviesChecked, allSavedMovies);
+      localStorage.setItem('savedMoviesSearchText', search.movie);
       localStorage.setItem('savedFilter', JSON.stringify(filteredSavedMovies));
 
       if (filteredSavedMovies.length === 0) {
@@ -198,7 +203,7 @@ function App() {
         setNotFoundSavedMovies(false);
       }
       setSavedMovies(filteredSavedMovies);
-    }, 1000);
+      setSavedMoviesKeyword(search.movie);
   }
 
   function toggleSavedMoviesCheckboxStatus() {
@@ -273,7 +278,6 @@ function App() {
       const localUserData = localStorage.getItem('currentUser');
       const localMoviesData = localStorage.getItem('movies');
       const localSavedMoviesData = localStorage.getItem('savedMovies');
-      // const localFilteredMoviesData = localStorage.getItem('filtered')
 
       if (!localUserData) {
         mainApi
@@ -307,9 +311,6 @@ function App() {
       } else {
         setSavedMovies(JSON.parse(localSavedMoviesData));
       };
-      // if (localFilteredMoviesData) {
-      //   localStorage.setItem('filtered', JSON.stringify(movies))
-      // }
     }
   }, [loggedIn]);
 
@@ -362,6 +363,8 @@ function App() {
                 onSubmit={handleSavedMoviesSearchSubmit}
                 onCheckbox={toggleSavedMoviesCheckboxStatus}
                 checked={isSavedMoviesChecked}
+                keyword={savedMoviesKeyword}
+                onSearchInputChange={handleSavedMoviesInputChange}
               />
               <ProtectedRoute
                 component={Profile}

@@ -10,6 +10,8 @@ function SavedMovies(props) {
                 onSubmit={props.onSubmit}
                 onCheckbox={props.onCheckbox}
                 checked={props.checked}
+                keyword={props.keyword}
+                onSearchInputChange={props.onSearchInputChange}
             />
             <MoviesCardList
                 searchResults={props.searchResults}
