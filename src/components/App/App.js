@@ -35,7 +35,7 @@ function App() {
   const [isMenuPageOpened, setIsPageMenuOpened] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = React.useState(JSON.parse(localStorage.getItem('filtered')) || []);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
