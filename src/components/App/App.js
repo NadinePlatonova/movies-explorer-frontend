@@ -35,7 +35,7 @@ function App() {
   const [isMenuPageOpened, setIsPageMenuOpened] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = React.useState(JSON.parse(localStorage.getItem('filtered')) || []);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -177,6 +177,7 @@ function App() {
     localStorage.setItem('checkboxStatus', checked);
     if (checked) {
       const shortMovies = movies.filter(filterSearchByDuration);
+      console.log(movies)
       console.log(shortMovies);
       setIsChecked(true);
       setMovies(shortMovies);
