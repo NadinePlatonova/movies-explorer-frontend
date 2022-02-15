@@ -172,10 +172,12 @@ function App() {
   }
 
   function toggleCheckboxStatus(e) {
+    console.log(2, e);
     const checked = e.target.checked
     localStorage.setItem('checkboxStatus', checked);
     if (checked) {
       const shortMovies = movies.filter(filterSearchByDuration);
+      console.log(shortMovies);
       setIsChecked(true);
       setMovies(shortMovies);
       setFoundMovies(shortMovies.slice(0, cardsRendering.total))
@@ -188,6 +190,7 @@ function App() {
   };
 
   React.useEffect(() => {
+    console.log(1, isChecked)
     toggleCheckboxStatus({ target: {checked: isChecked} })
   }, [])
 
