@@ -39,7 +39,7 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState(localStorage.getItem('savedFilter') ? JSON.parse(localStorage.getItem('savedFilter')) : []);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isChecked, setIsChecked] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(localStorage.getItem('filtered') || false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
