@@ -136,10 +136,12 @@ function App() {
       setLoggedIn(false);
       localStorage.removeItem('filtered');
       localStorage.removeItem('searchText');
-      localStorage.removeItem('checkboxStatus')
+      localStorage.removeItem('checkboxStatus');
+      localStorage.removeItem('currentUser');
       setFoundMovies([]);
       setKeyword('');
       setIsChecked(false);
+      setCurrentUser({});
       history.push("/");
     })
     .catch((err) => {
@@ -189,6 +191,7 @@ function App() {
 
   React.useEffect(() => {
     toggleCheckboxStatus({ target: {checked: isChecked} })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleShowMoreMovies = (index, limit) => {
