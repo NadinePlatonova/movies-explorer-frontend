@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Redirect, Route, Switch, useRouteMatch, useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -139,6 +139,7 @@ function App() {
       localStorage.removeItem('checkboxStatus')
       setFoundMovies([]);
       setKeyword('');
+      setIsChecked(false);
       history.push("/");
     })
     .catch((err) => {
@@ -164,21 +165,15 @@ function App() {
     } else {
         setNotFoundMovies(false);
       }
-    
-    // const checkboxStatus = (movie) => {
-    //   if (filteredMovies && movie.duration <= 40) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
-
-    // localStorage.setItem('checkboxStatus', JSON.stringify(checkboxStatus));
 
     setMovies(filteredMovies);
     setKeyword(search.movie);
     setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
   }
+
+  const filteredMovies = useMemo(()=> {
+    return filterMoviesSearch(keyword, isChecked, localData);
+  }, [keyword, isChecked, localData])
 
   function toggleCheckboxStatus(e) {
     const checked = e.target.checked
@@ -195,6 +190,10 @@ function App() {
       setFoundMovies(prevState.slice(0, cardsRendering.total))
     }
   };
+
+  // React.useEffect(() => {
+  //   toggleCheckboxStatus({ target: {checked: isChecked} })
+  // }, [])
 
   const handleShowMoreMovies = (index, limit) => {
     const newMovies = movies.slice(0, index + limit);
@@ -350,7 +349,7 @@ function App() {
                 path="/movies"
                 loggedIn={loggedIn}
                 allMovies={movies}
-                searchResults={foundMovies}
+                searchResults={filteredMovies.slice(0, cardsRendering.total)}
                 savedMovies={savedMovies}
                 onSubmit={handleSearchSubmit}
                 onToggleMovieStatus={toggleMovieStatus}
