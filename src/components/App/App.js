@@ -134,8 +134,9 @@ function App() {
     mainApi.signout()
     .then(() => {
       setLoggedIn(false);
-      localStorage.clear('filtered');
-      localStorage.clear('searchText');
+      localStorage.removeItem('filtered');
+      localStorage.removeItem('searchText');
+      localStorage.removeItem('checkboxStatus')
       setFoundMovies([]);
       setKeyword('');
       history.push("/");
@@ -181,10 +182,8 @@ function App() {
 
   function toggleCheckboxStatus(e) {
     const checked = e.target.checked
-    console.log(checked)
-    console.log(e.target)
-    // localStorage.setItem('checkboxStatus', isChecked);
-    if (!isChecked) {
+    localStorage.setItem('checkboxStatus', checked);
+    if (!checked) {
       const shortMovies = movies.filter(filterSearchByDuration);
       setIsChecked(true);
       setMovies(shortMovies);
