@@ -1,5 +1,7 @@
+import { SHORT_FILM_DURATION } from '../utils/constants';
+
 export const filterSearchByDuration = (movie) => {
-    return movie.duration <= 40;
+    return movie.duration <= SHORT_FILM_DURATION;
 }
 
 export const filterMoviesSearch = (search, isShortMovieClicked, movies) => {

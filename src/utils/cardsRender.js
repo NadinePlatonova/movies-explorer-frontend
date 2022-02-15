@@ -1,18 +1,14 @@
-const cardsRendering = {
-    large: { total: 12, add: 3 },
-    middle: { total: 8, add: 2 },
-    small: { total: 5, add: 1 },
-};
+import { BREAKPOINTS, FILM_COUNT_PER_PAGE, WINDOW_SIZES } from '../utils/constants';
 
 export const setCardsRender = (windowWidth) => {
     let size = '';
-    if (windowWidth >= 1025) {
-        size = 'large';
-    } else if (windowWidth >= 767) {
-        size = 'middle';
+    if (windowWidth >= BREAKPOINTS.LARGE) {
+        size = WINDOW_SIZES.LARGE;
+    } else if (windowWidth >= BREAKPOINTS.MIDDLE) {
+        size = WINDOW_SIZES.MIDDLE;
     } else {
-        size = 'small';
+        size = WINDOW_SIZES.SMALL;
     }
 
-    return cardsRendering[size];
+    return FILM_COUNT_PER_PAGE[size];
 };

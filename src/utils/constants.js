@@ -21,3 +21,23 @@ export const durationFormat = (min) => {
         return `${m}м`;
     }
 }
+
+export const SHORT_FILM_DURATION = 40;
+
+export const WINDOW_SIZES = {
+    LARGE: "LARGE",
+    MIDDLE: "MIDDLE",
+    SMALL: "SMALL",
+}
+
+export const BREAKPOINTS = {
+    [WINDOW_SIZES.LARGE]: 1025,
+    [WINDOW_SIZES.MIDDLE]: 767,
+}
+
+export const FILM_COUNT_PER_PAGE = {
+    [WINDOW_SIZES.LARGE]: { total: 12, add: 3 },
+    [WINDOW_SIZES.MIDDLE]: { total: 8, add: 2 },
+    [WINDOW_SIZES.SMALL]: { total: 5, add: 1 },
+}
+

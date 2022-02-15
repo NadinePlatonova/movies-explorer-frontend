@@ -18,7 +18,7 @@ import Preloader from '../Preloader/Preloader';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { setCardsRender } from '../../utils/cardsRender';
-import { profileMessages, SERVER_ERROR_MSG, registrationMessages} from '../../utils/constants';
+import { profileMessages, SERVER_ERROR_MSG, registrationMessages, FILM_COUNT_PER_PAGE} from '../../utils/constants';
 
 function App() {
   const pagesWithoutHeader = [
@@ -41,7 +41,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkboxStatus')) || false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
-  const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
+  const [cardsRendering, setCardsRendering] = React.useState(FILM_COUNT_PER_PAGE.LARGE);
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
   const [notFoundMovies, setNotFoundMovies] = React.useState(false);
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
