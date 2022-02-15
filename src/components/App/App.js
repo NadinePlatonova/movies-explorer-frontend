@@ -36,10 +36,10 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
-  const [savedMovies, setSavedMovies] = React.useState(localStorage.getItem('savedFilter') ? JSON.parse(localStorage.getItem('savedFilter')) : []);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [localData, setLocalData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [isChecked, setIsChecked] = React.useState(localStorage.getItem('filtered') || false);
+  const [isChecked, setIsChecked] = React.useState(JSON.parse(localStorage.getItem('checkboxStatus')) || false);
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
@@ -47,7 +47,7 @@ function App() {
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
   const [keyword, setKeyword] = React.useState(localStorage.getItem('searchText') || '');
-  const [savedMoviesKeyword, setSavedMoviesKeyword] = React.useState(localStorage.getItem('savedMoviesSearchText') || '');
+  const [savedMoviesKeyword, setSavedMoviesKeyword] = React.useState('');
   const history = useHistory();
   const { width } = useWindowSize();
 
@@ -136,11 +136,8 @@ function App() {
       setLoggedIn(false);
       localStorage.clear('filtered');
       localStorage.clear('searchText');
-      localStorage.clear('savedFilter');
-      localStorage.clear('savedMoviesSearchText')
       setFoundMovies([]);
       setKeyword('');
-      setSavedMoviesKeyword('');
       history.push("/");
     })
     .catch((err) => {
@@ -160,20 +157,33 @@ function App() {
     const filteredMovies = filterMoviesSearch(search.movie, isChecked, localData);
     localStorage.setItem('searchText', search.movie);
     localStorage.setItem('filtered', JSON.stringify(filteredMovies));
-    // localStorage.setItem('filteredSlider', isChecked);
     
     if (filteredMovies.length === 0) {
       setNotFoundMovies(true);
     } else {
         setNotFoundMovies(false);
       }
+    
+    // const checkboxStatus = (movie) => {
+    //   if (filteredMovies && movie.duration <= 40) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
+
+    // localStorage.setItem('checkboxStatus', JSON.stringify(checkboxStatus));
 
     setMovies(filteredMovies);
     setKeyword(search.movie);
     setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
   }
 
-  function toggleCheckboxStatus() {
+  function toggleCheckboxStatus(e) {
+    const checked = e.target.checked
+    console.log(checked)
+    console.log(e.target)
+    // localStorage.setItem('checkboxStatus', isChecked);
     if (!isChecked) {
       const shortMovies = movies.filter(filterSearchByDuration);
       setIsChecked(true);
@@ -203,8 +213,8 @@ function App() {
       } else {
         setNotFoundSavedMovies(false);
       }
-      setSavedMovies(filteredSavedMovies);
       setSavedMoviesKeyword(search.movie);
+      setSavedMovies(filteredSavedMovies);
   }
 
   function toggleSavedMoviesCheckboxStatus() {
