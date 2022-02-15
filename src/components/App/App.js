@@ -183,7 +183,7 @@ function App() {
   function toggleCheckboxStatus(e) {
     const checked = e.target.checked
     localStorage.setItem('checkboxStatus', checked);
-    if (!checked) {
+    if (checked) {
       const shortMovies = movies.filter(filterSearchByDuration);
       setIsChecked(true);
       setMovies(shortMovies);
