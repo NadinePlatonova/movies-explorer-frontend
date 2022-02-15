@@ -138,10 +138,15 @@ function App() {
       localStorage.removeItem('searchText');
       localStorage.removeItem('checkboxStatus');
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('savedMoviesSearchText');
+      localStorage.removeItem('savedFilter');
+      localStorage.removeItem('savedMovies');
       setFoundMovies([]);
       setKeyword('');
       setIsChecked(false);
       setCurrentUser({});
+      setSavedMoviesKeyword('');
+      setSavedMovies([]);
       history.push("/");
     })
     .catch((err) => {
