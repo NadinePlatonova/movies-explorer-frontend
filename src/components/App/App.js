@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch, useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -43,7 +43,7 @@ function App() {
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = React.useState(false);
   const [cardsRendering, setCardsRendering] = React.useState({ total: 12, add: 3 });
   const [foundMovies, setFoundMovies] = React.useState(localStorage.getItem('filtered') ? JSON.parse(localStorage.getItem('filtered')) : []);
-  // const [notFoundMovies, setNotFoundMovies] = React.useState(false);
+  const [notFoundMovies, setNotFoundMovies] = React.useState(false);
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [formSubmitMessage, setFormSubmitMessage] = React.useState('');
   const [keyword, setKeyword] = React.useState(localStorage.getItem('searchText') || '');
@@ -160,30 +160,16 @@ function App() {
     localStorage.setItem('searchText', search.movie);
     localStorage.setItem('filtered', JSON.stringify(filteredMovies));
     
-    // if (filteredMovies.length === 0) {
-    //   setNotFoundMovies(true);
-    // } else {
-    //     setNotFoundMovies(false);
-    //   }
+    if (filteredMovies.length === 0) {
+      setNotFoundMovies(true);
+    } else {
+        setNotFoundMovies(false);
+      }
 
     setMovies(filteredMovies);
     setKeyword(search.movie);
     setFoundMovies(filteredMovies.slice(0, cardsRendering.total))
   }
-
-  const filteredMovies = useMemo(()=> {
-    if (!keyword) {
-      return [];
-    }
-    return filterMoviesSearch(keyword, isChecked, localData);
-  }, [keyword, isChecked, localData])
-
-  const noSearchResult = useMemo(() => {
-    if (keyword && !filteredMovies.length) {
-      return true;
-    }
-    return false;
-  }, [keyword, filteredMovies])
 
   function toggleCheckboxStatus(e) {
     const checked = e.target.checked
@@ -201,9 +187,9 @@ function App() {
     }
   };
 
-  // React.useEffect(() => {
-  //   toggleCheckboxStatus({ target: {checked: isChecked} })
-  // }, [])
+  React.useEffect(() => {
+    toggleCheckboxStatus({ target: {checked: isChecked} })
+  }, [])
 
   const handleShowMoreMovies = (index, limit) => {
     const newMovies = movies.slice(0, index + limit);
@@ -359,12 +345,12 @@ function App() {
                 path="/movies"
                 loggedIn={loggedIn}
                 allMovies={movies}
-                searchResults={filteredMovies.slice(0, cardsRendering.total)}
+                searchResults={foundMovies}
                 savedMovies={savedMovies}
                 onSubmit={handleSearchSubmit}
                 onToggleMovieStatus={toggleMovieStatus}
                 cardsRendering={cardsRendering}
-                notFoundMovies={noSearchResult}
+                notFoundMovies={notFoundMovies}
                 onShowMoreMovies={handleShowMoreMovies}
                 onCheckbox={toggleCheckboxStatus}
                 checked={isChecked}
