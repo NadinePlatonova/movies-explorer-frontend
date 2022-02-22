@@ -49,17 +49,24 @@
     height: 46px;
     border: 0;
     box-sizing: border-box;
-    margin: 10px 0 20px;
+    margin: 10px 0 10px;
     padding: 15px;
-}
-
-.auth-reg__input:last-of-type {
-    margin: 10px 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .auth-reg__input:focus {
     outline: none;
     padding: 15px;
+}
+
+.auth-reg__error {
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF3055;
+    display: block;
+    text-align: left;
 }
 
 .auth-reg__button {
@@ -82,6 +89,12 @@
 .auth-reg__button:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+.auth-reg__button:disabled {
+    opacity: unset;
+    cursor: default;
+    background-color: #F2F2F2;
 }
 
 .auth-reg__caption {

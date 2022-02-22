@@ -18,6 +18,7 @@
     padding: 0 0 13px;
     margin-bottom: 32px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .search__input {
@@ -47,12 +48,28 @@
     cursor: pointer; 
 }
 
+.search__button:disabled {
+    cursor: default;
+    opacity: unset;
+}
+
 .search__input::placeholder {
     font-style: normal;
     font-weight: 500;
     font-size: 28px;
     line-height: 34px;
     color: #A0A0A0;
+}
+
+.search__error {
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    display: block;
+    position: absolute;
+    bottom: 2px;
+    text-align: left;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 1023px) {
