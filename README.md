@@ -9,6 +9,6 @@ _Фронтенд дипломного проекта Movies Explorer. Возм�
 * добавить обработку ошибок при сохранении карточки с фильмом;
 * убрать "костыль" с перезагрузкой страницы.
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/fKQ86bXbKt5QyLtJDXmOY4/Diploma-(Copy)?node-id=932%3A2802)
+[Ссылка на макет в Figma](https://www.figma.com/file/fKQ86bXbKt5QyLtJDXmOY4/Diploma-(Copy)?node-id=932%3A2802)
 
-* [Ссылка на сайт](https://thebestfilms.nomoredomains.rocks)
+[Ссылка на сайт](https://thebestfilms.nomoredomains.rocks)
