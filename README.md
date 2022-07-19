@@ -7,7 +7,7 @@
 > - the 3rd page (available after registration and login) - here you can find all movies you liked on the 2nd page;
 > - the 4th page (available after registration and login) - the user profile (name and e-mail info).
 
-![header screenshot](/Movies.gif)
+![video](/video.mp4)
 
 **Stack:** HTML, CSS, JavaScript, React.js.
 
