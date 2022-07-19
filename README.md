@@ -1,6 +1,6 @@
 # Movies (frontend)
 
-![header screenshot](/Movies.gif)
+![project demonstration](/demo.gif)
 
 > Movies Explorer - the frontend part of the diploma project within Yandex.Practicum course. It is a 4-page adaptive website:
 >
