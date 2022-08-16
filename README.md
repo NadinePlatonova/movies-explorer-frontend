@@ -4,7 +4,7 @@
 
 > Movies Explorer - the frontend part of the diploma project within Yandex.Practicum course. It is a 4-page adaptive website:
 >
-> - the 1t page - the project description and the student's portfolio, here you can also register/login;
+> - the 1st page - the project description and the student's portfolio, here you can also register/login;
 > - the 2nd page (available after registration and login) - a search bar where you can enter any letters, press the Enter button, and all movies that meet your request will appear, you can also sort movies by short films and like movies;
 > - the 3rd page (available after registration and login) - here you can find all movies you liked on the 2nd page;
 > - the 4th page (available after registration and login) - the user profile (name and e-mail info).
